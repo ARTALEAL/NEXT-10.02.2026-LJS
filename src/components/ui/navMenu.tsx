@@ -1,19 +1,24 @@
-'use client';
+import NavLink from './navLink';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+const navLinks = [
+  { href: '/', title: 'Главная', activeClassName: 'text-amber-300' },
+  { href: '/rackets', title: 'Ракетки', activeClassName: 'text-amber-300' },
+];
 
 export default function NavMenu() {
-  const path = usePathname();
   return (
     <nav>
       <ul className="flex gap-5">
-        <li className={path === '/' ? 'text-amber-300' : ''}>
-          <Link href="/">Главная</Link>
-        </li>
-        <li className={path === '/rackets' ? 'text-amber-300' : ''}>
-          <Link href="/rackets">Ракетки</Link>
-        </li>
+        {navLinks.map(({ href, title, activeClassName }) => {
+          return (
+            <NavLink
+              key={title}
+              href={href}
+              activeClassName={activeClassName}
+              title={title}
+            />
+          );
+        })}
       </ul>
     </nav>
   );

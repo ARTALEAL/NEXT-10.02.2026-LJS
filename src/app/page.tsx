@@ -4,7 +4,6 @@ import RacketCard from '@/components/ui/racketCard';
 import { IRacket } from '@/utils/types.dto';
 
 const data: IRacket[] = rackets.slice(0, 3);
-console.log(data);
 
 export default function Home() {
   return (

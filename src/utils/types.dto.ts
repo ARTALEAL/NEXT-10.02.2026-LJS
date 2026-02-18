@@ -14,3 +14,14 @@ export interface IRacket {
     name: string;
   };
 }
+
+export type Response<Entity> = Promise<{
+  isError: boolean;
+  data?: Entity;
+}>;
+
+export interface ISearchParams {
+  limit: number;
+  page: number;
+  brand?: string;
+}

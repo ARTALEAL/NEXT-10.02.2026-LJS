@@ -1,19 +1,6 @@
-import { rackets } from '@/utils/mocks';
-import { IRacket } from '@/utils/types.dto';
+import getRacketById from '@/services/racket-service-get-by-id';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-
-export async function generateStaticParams() {
-  const staticRackets = rackets.slice(0, 3);
-
-  return staticRackets.map((racket) => ({
-    id: racket.id.toString(),
-  }));
-}
-
-function getRacket(id: string): IRacket | undefined {
-  return rackets.find((racket) => racket.id === parseInt(id));
-}
 
 export default async function RacketPage({
   params,
@@ -21,24 +8,24 @@ export default async function RacketPage({
   params: { id: string };
 }) {
   const { id } = await params;
-  const racket = getRacket(id);
-  if (!racket) {
+  const { data } = await getRacketById(id);
+  if (!data) {
     notFound();
   }
 
   return (
     <main className="main grid grid-cols-2 gap-4">
       <div className="">
-        {racket.description}
+        {data.name}
         <hr />
-        <span className="block mt-3 font-bold">Цена: {racket.price} у.е.</span>
+        <span className="block mt-3 font-bold">Цена: {data.price} у.е.</span>
       </div>
 
       <div>
         <Image
           className="w-full"
-          src={racket.imageUrl}
-          alt={racket.name}
+          src={data.imageUrl}
+          alt={data.name}
           width={200}
           height={250}
           unoptimized={true}

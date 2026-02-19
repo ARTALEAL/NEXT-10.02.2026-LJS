@@ -1,19 +1,19 @@
+import RacketList from '@/components/rackets/RacketsList';
+import RacketListSkeleton from '@/components/rackets/RacketsListSkeleton';
+import Top10Rackets from '@/components/rackets/Top10Rackets';
 import MainTitle from '@/components/ui/mainTitle';
-import { rackets } from '../utils/mocks';
-import RacketCard from '@/components/ui/racketCard';
-import { IRacket } from '@/utils/types.dto';
-
-const data: IRacket[] = rackets.slice(0, 3);
+import { Suspense } from 'react';
 
 export default function Home() {
   return (
     <main className="main p-3.5 flex-col">
       <MainTitle title="Ракетки" />
-      <ul className="flex flex-wrap gap-4 justify-center mt-4">
-        {data.map((racket: IRacket) => {
-          return <RacketCard key={racket.id} racketData={racket} />;
-        })}
-      </ul>
+      <Suspense fallback={<RacketListSkeleton title="Топ-10 ракеток" />}>
+        <Top10Rackets />
+      </Suspense>
+      <Suspense fallback={<RacketListSkeleton title="Ракетки" />}>
+        <RacketList limit={10} page={1} />
+      </Suspense>
     </main>
   );
 }

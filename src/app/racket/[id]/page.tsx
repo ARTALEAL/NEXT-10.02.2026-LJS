@@ -1,6 +1,22 @@
 import getRacketById from '@/services/racket-service-get-by-id';
+import getRacketMetaById from '@/services/racket-service-getMeta-by-id';
+import { Metadata } from 'next';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const { id } = await params;
+  const { data } = await getRacketMetaById(id);
+
+  return {
+    title: data?.name,
+    description: data?.description,
+  };
+}
 
 export default async function RacketPage({
   params,

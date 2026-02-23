@@ -8,7 +8,11 @@ export default function Home() {
   return (
     <main className="main p-3.5 flex-col">
       <MainTitle title="Ракетки" />
-      <Suspense fallback={<RacketListSkeleton title="Топ-10 ракеток" />}>
+      <Suspense
+        fallback={
+          <RacketListSkeleton title="Топ-10 ракеток" renderNumber={10} />
+        }
+      >
         <Top10Rackets />
       </Suspense>
       <Suspense fallback={<RacketListSkeleton title="Ракетки" />}>

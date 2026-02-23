@@ -2,7 +2,7 @@ import RacketSkeleton from './RacketSkeleton';
 
 interface IProps {
   title: string;
-  renderNumber: number;
+  renderNumber?: number;
 }
 export default async function RacketListSkeleton({
   title,

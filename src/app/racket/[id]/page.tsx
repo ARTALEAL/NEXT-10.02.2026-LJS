@@ -1,3 +1,4 @@
+import AddToFavorites from '@/components/addToFavorites/AddToFavorites';
 import getRacketById from '@/services/racket-service-get-by-id';
 import getRacketMetaById from '@/services/racket-service-getMeta-by-id';
 import { Metadata } from 'next';
@@ -35,6 +36,7 @@ export default async function RacketPage({
         {data.name}
         <hr />
         <span className="block mt-3 font-bold">Цена: {data.price} у.е.</span>
+        <AddToFavorites userData={data.userData} />
       </div>
 
       <div>

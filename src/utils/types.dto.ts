@@ -9,6 +9,9 @@ export interface IRacket {
   top10: boolean;
   description?: string;
   brandId: number;
+  userData: {
+    isFavorite: string;
+  };
   brand: {
     id: number;
     name: string;
@@ -24,4 +27,9 @@ export interface ISearchParams {
   limit: number;
   page: number;
   brand?: string;
+}
+
+export interface IUser {
+  login: string;
+  isAdmin: boolean;
 }

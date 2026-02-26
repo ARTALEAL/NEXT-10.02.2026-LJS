@@ -1,3 +1,4 @@
+import UserControls from '../user-controls/UserControls';
 import NavLink from './navLink';
 
 const navLinks = [
@@ -19,6 +20,9 @@ export default function NavMenu() {
             />
           );
         })}
+        <li>
+          <UserControls />
+        </li>
       </ul>
     </nav>
   );

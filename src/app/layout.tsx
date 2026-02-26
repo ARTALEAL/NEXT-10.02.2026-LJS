@@ -4,6 +4,8 @@ import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import NextTopLoader from 'nextjs-toploader';
+import { getUser } from '@/services/get-user';
+import { UserProvider } from '@/providers/UserProvider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -23,11 +25,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { data } = await getUser();
   return (
     <html lang="ru">
       <body
@@ -44,9 +47,11 @@ export default function RootLayout({
           speed={200}
           shadow="0 0 10px #2299DD,0 0 5px #2299DD"
         />
-        <Header />
-        {children}
-        <Footer />
+        <UserProvider user={data}>
+          <Header />
+          {children}
+          <Footer />
+        </UserProvider>
       </body>
     </html>
   );

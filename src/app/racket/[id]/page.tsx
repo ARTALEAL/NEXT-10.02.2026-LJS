@@ -26,6 +26,7 @@ export default async function RacketPage({
 }) {
   const { id } = await params;
   const { data } = await getRacketById(id);
+
   if (!data) {
     notFound();
   }
@@ -36,7 +37,7 @@ export default async function RacketPage({
         {data.name}
         <hr />
         <span className="block mt-3 font-bold">Цена: {data.price} у.е.</span>
-        <AddToFavorites userData={data.userData} />
+        <AddToFavorites data={data} />
       </div>
 
       <div>

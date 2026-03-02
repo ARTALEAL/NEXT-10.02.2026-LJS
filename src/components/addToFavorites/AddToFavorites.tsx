@@ -2,7 +2,7 @@
 
 import { FavoritesContext } from '@/providers/FavoritesProvider';
 import { UserContext } from '@/providers/UserProvider';
-import { use } from 'react';
+import { use, useState } from 'react';
 
 interface IProps {
   data: {
@@ -15,10 +15,12 @@ interface IProps {
 
 export default function AddToFavorites({ data }: IProps) {
   const user = use(UserContext);
-  const { isFavorite, toggleFavorite, isPending } = use(FavoritesContext);
+  const { toggleFavorite, isPending } = use(FavoritesContext);
+  const [isFavorite, setIsFavorite] = useState(
+    data.userData?.isFavorite ?? false,
+  );
 
   const productId = data.id;
-  const isProductFavorite = isFavorite(productId);
 
   if (!user) {
     return null;
@@ -26,21 +28,24 @@ export default function AddToFavorites({ data }: IProps) {
 
   const handleClick = async () => {
     await toggleFavorite(productId);
+    setIsFavorite(!isFavorite);
   };
 
   return (
     <div className="flex gap-2">
       <label
         htmlFor="isfavoriteButton"
-        className={`rounded-md cursor-pointer w-10 h-10 border ${isProductFavorite ? 'bg-amber-400' : ''}`}
+        className={`rounded-md cursor-pointer w-10 h-10 border ${isFavorite ? 'bg-amber-400' : ''}`}
       ></label>
       <button
         id="isfavoriteButton"
-        className={`cursor-pointer border p-2 hover:bg-amber-400 ${isPending ? 'opacity-50' : ''} disabled:opacity-50`}
+        className={`cursor-pointer border p-2 hover:bg-amber-400 ${
+          isPending ? 'opacity-50 cursor-not-allowed' : ''
+        }`}
         onClick={handleClick}
         disabled={isPending}
       >
-        {isProductFavorite ? (
+        {isFavorite ? (
           <span>Удалить из избранного для {user.login}</span>
         ) : (
           <span>Добавить в избранное для {user.login}</span>

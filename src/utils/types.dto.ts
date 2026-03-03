@@ -9,8 +9,8 @@ export interface IRacket {
   top10: boolean;
   description?: string;
   brandId: number;
-  userData: {
-    isFavorite: string;
+  userData?: {
+    isFavorite: boolean;
   };
   brand: {
     id: number;

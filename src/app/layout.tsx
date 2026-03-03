@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import NextTopLoader from 'nextjs-toploader';
 import { getUser } from '@/services/get-user';
 import { UserProvider } from '@/providers/UserProvider';
+import { FavoritesProvider } from '@/providers/FavoritesProvider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -48,9 +49,11 @@ export default async function RootLayout({
           shadow="0 0 10px #2299DD,0 0 5px #2299DD"
         />
         <UserProvider user={data}>
-          <Header />
-          {children}
-          <Footer />
+          <FavoritesProvider>
+            <Header />
+            {children}
+            <Footer />
+          </FavoritesProvider>
         </UserProvider>
       </body>
     </html>
